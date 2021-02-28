@@ -1,21 +1,20 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, Alert, LogBox } from 'react-native';
-//import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as firebase from 'firebase';
 import 'firebase/auth';
 import { Container } from '../../components/Container/index';
 import { Button } from '../../components/Button/index';
 import { InputComponent } from '../../components/Input/index';
 import { Text } from '../../components/Text/index';
-//import { SaveToken } from '../../redux/actions/auth';
+import { SaveToken } from '../../redux/actions/auth';
 import pattern from '../../utils/emailRegex';
 
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setIsValid] = useState(true);
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (pattern.test(String(email).toLowerCase()) || !email.length) {
@@ -35,7 +34,7 @@ export default function SignIn({ navigation }) {
            ]);
          });
        const token = await authData.user.getIdToken();
-       //await dispatch(SaveToken(token));
+       await dispatch(SaveToken(token));
     } else {
       Alert.alert('Preencha todos os campos antes de fazer o login');
     }
