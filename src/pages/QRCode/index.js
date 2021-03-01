@@ -22,15 +22,17 @@ export default QRCode = ({ navigation }) => {
   }, []);
 
   const handleBarCodeScanned = debounce(async({ type, data }) => {
-    if (type === Constants.BarCodeType['qr']) {
+    if (type === Constants.BarCodeType['qr'] && data) {
       const db = firebase.firestore();
       const user = firebase.auth().currentUser;
-      const docRef = db.collection('Carts').doc(data);
+      const cartRef = db.collection('Carts').doc(data);
+      const userRef = db.collection('Users').doc(user.uid);
 
       try {
-        const doc = await docRef.get();
-        if (doc.exists) {
-          await docRef.set({ userId: user.uid });
+        const cart = await cartRef.get();
+        if (cart.exists) {
+          await cartRef.set({ userId: user.uid });
+          await userRef.set({ cartId: data });
           navigation.goBack();
         }
       } catch (e) {
