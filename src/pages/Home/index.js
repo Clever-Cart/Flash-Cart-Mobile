@@ -5,8 +5,12 @@ import {Button} from '../../components/Button/index';
 import {Text} from '../../components/Text/index';
 import {Logout} from '../../redux/actions/auth';
 import {useDispatch} from 'react-redux';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 const Home = ({ navigation }) => {
+  const [cartId, setCartId] = React.useState();
+
   const dispatch = useDispatch();
   const handleLogoutButton = () => {
     dispatch(Logout());
@@ -15,6 +19,27 @@ const Home = ({ navigation }) => {
   const handleReadQRButton = () => {
     navigation.navigate('QRCode');
   }
+
+  React.useEffect(() => {
+    const db = firebase.firestore();
+    const userId = firebase.auth().currentUser?.uid;
+
+    if (!userId) {
+      return;
+    }
+
+    return db.collection('Users')
+      .doc(userId)
+      .onSnapshot(documentSnapshot => {
+        const data = documentSnapshot.data();
+
+        if (!data?.cartId) {
+          return;
+        }
+        
+        setCartId(data.cartId);
+      });
+  }, []);
 
   return (
     <Container modifiers="around">
@@ -31,6 +56,7 @@ const Home = ({ navigation }) => {
           >
           <Text modifiers="buttonText">Logout</Text>
         </Button>
+        {cartId ? <Text>{`Carrinho conectado: ${ cartId }`}</Text> : null}
       </View>
     </Container>
   );
