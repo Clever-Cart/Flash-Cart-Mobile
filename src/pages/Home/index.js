@@ -32,12 +32,7 @@ const Home = ({ navigation }) => {
       .doc(userId)
       .onSnapshot(documentSnapshot => {
         const data = documentSnapshot.data();
-
-        if (!data?.cartId) {
-          return;
-        }
-        
-        setCartId(data.cartId);
+        setCartId(data && data.cartId);
       });
   }, []);
 
