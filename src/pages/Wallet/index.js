@@ -65,21 +65,29 @@ const Wallet = () => {
   const [cards, setCards] = React.useState([])
   const [isAdding, setIsAdding] = React.useState(false)
 
-  const retrieveCards = async() => {
+  const handleSnapshot = async() => {
     const db = firebase.firestore()
     const user = firebase.auth().currentUser
 
-    db.collection('Users')
+    const snapshot = await db.collection('Users')
         .doc(user.uid)
         .collection('Cards')
-        .onSnapshot(querySnapshot => {
-          console.log(querySnapshot)
-        })
-        setCards(mock)
+        .get()
+    console.log(snapshot.docs.map(doc => doc.data()));
   }
-
   React.useEffect(() => {
-    retrieveCards()
+    const db = firebase.firestore()
+    const user = firebase.auth().currentUser
+
+    const unsubscribe = db.collection('Users')
+      .doc(user.uid)
+      .collection('Cards')
+      .onSnapshot(querySnapshot => {
+        const snapshot = querySnapshot.docs.map(doc => doc.data())
+        setCards(snapshot)
+      })
+
+    return () => unsubscribe()
   }, [])
 
   return (
@@ -87,7 +95,8 @@ const Wallet = () => {
       <Text style={styles.info}>Aqui você pode gerenciar seus cartões, é obrigatório que você tenha pelo menos um.</Text>
       <FlatList
         data={cards}
-        renderItem={({ item }) => <Card />}
+        renderItem={({ item }) => <Card card={item} />}
+        keyExtractor={item => item.number}
         style={styles.list}
       />
       <View style={styles.bottom}>

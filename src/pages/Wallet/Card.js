@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     backgroundColor: '#F97D7D',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 16
   },
   name: {
     color: 'white'
@@ -16,10 +17,11 @@ const styles = StyleSheet.create({
   }
 })
 
-const Card = () => (
+const Card = ({ card }) => (
   <View style={styles.card}>
     <Text style={styles.name}>Cartão de Crédito</Text>
-    <Text style={styles.number}>**** **** **** 4321</Text>
+    <Text style={styles.name}>{card.name}</Text>
+    <Text style={styles.number}>{card.number}</Text>
   </View>
 )
 
