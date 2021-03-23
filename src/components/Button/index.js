@@ -20,9 +20,19 @@ const MODIFIERS = {
   `,
 };
 
-const Button = styled.TouchableOpacity`
-  height: 48px;
+export const Button = styled.TouchableOpacity`
+  height: 60px;
   background-color: ${Colors.MainColor};
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+
+  ${applyStyleModifiers(MODIFIERS)}
+`;
+
+export const SecondaryButton = styled.TouchableOpacity`
+  height: 48px;
+  background-color: ${Colors.SecondaryColor};
   border-radius: 25px;
   justify-content: center;
   align-items: center;
@@ -34,4 +44,3 @@ Button.Image = styled.Image`
   width: 24px;
 `;
 
-export { Button };

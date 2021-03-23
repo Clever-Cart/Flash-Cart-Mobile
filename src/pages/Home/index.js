@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, FlatList, TextInput} from 'react-native';
 import {Container} from '../../components/Container/index';
 import {Button} from '../../components/Button/index';
-import {Text} from '../../components/Text/index';
+import {Text, MainText} from '../../components/Text/index';
 import {Logout} from '../../redux/actions/auth';
 import {useDispatch} from 'react-redux';
 import * as firebase from 'firebase';
@@ -43,13 +43,13 @@ const Home = ({ navigation }) => {
           modifiers="commonButton"
           onPress={() => handleReadQRButton()}
         >
-          <Text modifiers="buttonText">Read QRCode</Text>
+          <MainText modifiers="buttonText">Ler QRCode</MainText>
         </Button>
         <Button
           modifiers="commonButton"
           onPress={() => handleLogoutButton()}
           >
-          <Text modifiers="buttonText">Logout</Text>
+          <MainText modifiers="buttonText">Deslogar</MainText>
         </Button>
         {cartId ? <Text>{`Carrinho conectado: ${ cartId }`}</Text> : null}
       </View>

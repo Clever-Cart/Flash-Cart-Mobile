@@ -5,7 +5,7 @@ import 'firebase/auth';
 import { Container } from '../../components/Container/index';
 import { Button } from '../../components/Button/index';
 import { InputComponent } from '../../components/Input/index';
-import { Text } from '../../components/Text/index';
+import { Text, MainText } from '../../components/Text/index';
 import pattern from '../../utils/emailRegex';
 
 const SignUp = ({ navigation }) => {
@@ -102,7 +102,7 @@ const SignUp = ({ navigation }) => {
           modifiers="commonButton"
           onPress={() => handleRegisterButton()}
           testID="signUpButton">
-          <Text modifiers="buttonText">Cadastrar</Text>
+          <MainText modifiers="buttonText">CADASTRAR</MainText>
         </Button>
       </KeyboardAvoidingView>
     </Container>

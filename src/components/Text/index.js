@@ -30,3 +30,10 @@ export const Text = styled.Text`
 
   ${applyStyleModifiers(MODIFIERS)}
 `;
+
+export const MainText = styled.Text`
+  font-size: 20px;
+  color: ${Colors.MainButtonText};
+
+  ${applyStyleModifiers(MODIFIERS)}
+`;

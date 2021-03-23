@@ -11,7 +11,8 @@ const MODIFIERS = {
 const InputComp = styled.View`
   margin: 5px 0;
   background-color: ${Colors.SecondaryColor};
-  border-radius: 4px;
+  border: solid ${Colors.MainColor};
+  border-radius: 50px;
   padding: 10px 0;
 
   ${applyStyleModifiers(MODIFIERS)}

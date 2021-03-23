@@ -6,7 +6,7 @@ import 'firebase/auth';
 import { Container } from '../../components/Container/index';
 import { Button } from '../../components/Button/index';
 import { InputComponent } from '../../components/Input/index';
-import { Text } from '../../components/Text/index';
+import { Text, MainText } from '../../components/Text/index';
 import { SaveToken } from '../../redux/actions/auth';
 import pattern from '../../utils/emailRegex';
 
@@ -80,7 +80,7 @@ export default function SignIn({ navigation }) {
           onPress={() => {
             handleLoginButton();
           }}>
-          <Text modifiers="buttonText">Login</Text>
+          <MainText modifiers="buttonText">LOGIN</MainText>
         </Button>
       </KeyboardAvoidingView>
     </Container>
