@@ -3,15 +3,15 @@ import { KeyboardAvoidingView, Platform, Alert, LogBox } from 'react-native';
 import * as firebase from 'firebase';
 import 'firebase/auth';
 import { Container } from '../../components/Container/index';
-import { Button } from '../../components/Button/index';
+import { Button, ClearButton } from '../../components/Button/index';
 import { InputComponent } from '../../components/Input/index';
-import { Text, MainText } from '../../components/Text/index';
+import { Text, MainText, LinkText, SecondaryText } from '../../components/Text/index';
 import pattern from '../../utils/emailRegex';
 
 const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [secureEntry, setSecureEntry] = useState(false);
+  // const [secureEntry, setSecureEntry] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
@@ -54,6 +54,7 @@ const SignUp = ({ navigation }) => {
 
   return (
     <Container modifiers="around">
+      <SecondaryText modifiers="title">REGISTRO</SecondaryText>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <InputComponent
@@ -91,13 +92,16 @@ const SignUp = ({ navigation }) => {
         {!isValidPassword && (
           <Text modifiers="danger">As senhas não conferem</Text>
         )}
-        <Button
+        <ClearButton
           onPress={() => navigation.navigate('Login')}
           modifiers="noBorderButton">
           <Text modifiers="underline" testID="hasAccount">
             Já tem uma conta?
           </Text>
-        </Button>
+          <LinkText modifiers="underline" testID="hasAccount">
+            Faça Login
+          </LinkText>
+        </ClearButton>
         <Button
           modifiers="commonButton"
           onPress={() => handleRegisterButton()}

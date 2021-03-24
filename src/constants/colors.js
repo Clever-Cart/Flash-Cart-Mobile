@@ -1,6 +1,5 @@
 const LightRed = '#F97D7D'
 const DarkGray = '#2A2C36';
-const WhiteText = '#F5F5F5';
 const LightGray = '#ABB4BD';
 const Error = '#FF2424';
 const White = '#FFFFFF';

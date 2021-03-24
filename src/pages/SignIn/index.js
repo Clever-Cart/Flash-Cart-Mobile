@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import * as firebase from 'firebase';
 import 'firebase/auth';
 import { Container } from '../../components/Container/index';
-import { Button } from '../../components/Button/index';
+import { Button, ClearButton } from '../../components/Button/index';
 import { InputComponent } from '../../components/Input/index';
-import { Text, MainText } from '../../components/Text/index';
+import { Text, MainText, LinkText, SecondaryText } from '../../components/Text/index';
 import { SaveToken } from '../../redux/actions/auth';
 import pattern from '../../utils/emailRegex';
 
@@ -42,6 +42,7 @@ export default function SignIn({ navigation }) {
 
   return (
     <Container modifiers="around">
+      <SecondaryText modifiers="title">LOGIN</SecondaryText>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <InputComponent
@@ -67,13 +68,16 @@ export default function SignIn({ navigation }) {
           autoCorrect={false}
           value={password}
         />
-        <Button
+        <ClearButton
           onPress={() => navigation.navigate('SignUp')}
           modifiers="noBorderButton">
           <Text modifiers="underline" testID="signUp">
-            Não tem conta? Cadastre-se
+            Não tem conta?
           </Text>
-        </Button>
+          <LinkText modifiers="underline color-blue" testID="signUp">
+            Cadastre-se
+          </LinkText>
+        </ClearButton>
         <Button
           testID="loginButton"
           modifiers="commonButton"

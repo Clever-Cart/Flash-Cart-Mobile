@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, FlatList, TextInput} from 'react-native';
-import {Container} from '../../components/Container/index';
-import {Button} from '../../components/Button/index';
-import {Text, MainText} from '../../components/Text/index';
+import React from 'react';
+import {View} from 'react-native';
+import {HomeContainer} from '../../components/Container/index';
+import {SecondaryButton, SmallWhiteButton} from '../../components/Button/index';
+import {Text, MainText, SecondaryText} from '../../components/Text/index';
 import {Logout} from '../../redux/actions/auth';
 import {useDispatch} from 'react-redux';
 import * as firebase from 'firebase';
@@ -37,23 +37,27 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <Container modifiers="around">
+    <HomeContainer modifiers="around">
       <View>
-        <Button
+        <MainText modifiers="title">Bem vinde ao</MainText>
+        <MainText modifiers="title">FLASH CART</MainText>
+        <MainText modifiers="subTitle">Para começar, leia o QRCode</MainText>
+        <MainText modifiers="subTitle">Aperte no botão abaixo</MainText>
+        <SecondaryButton
           modifiers="commonButton"
           onPress={() => handleReadQRButton()}
-        >
-          <MainText modifiers="buttonText">Ler QRCode</MainText>
-        </Button>
-        <Button
+          >
+          <SecondaryText modifiers="buttonText">LER QRCODE</SecondaryText>
+        </SecondaryButton>
+        <SmallWhiteButton
           modifiers="commonButton"
           onPress={() => handleLogoutButton()}
           >
-          <MainText modifiers="buttonText">Deslogar</MainText>
-        </Button>
+          <SecondaryText modifiers="buttonText">DESLOGAR</SecondaryText>
+        </SmallWhiteButton>
         {cartId ? <Text>{`Carrinho conectado: ${ cartId }`}</Text> : null}
       </View>
-    </Container>
+    </HomeContainer>
   );
 };
 

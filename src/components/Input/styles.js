@@ -10,10 +10,12 @@ const MODIFIERS = {
 
 const InputComp = styled.View`
   margin: 5px 0;
+  height: 70px;
   background-color: ${Colors.SecondaryColor};
   border: solid ${Colors.MainColor};
   border-radius: 50px;
   padding: 10px 0;
+  elevation: 5;
 
   ${applyStyleModifiers(MODIFIERS)}
 `;
@@ -21,7 +23,7 @@ const InputComp = styled.View`
 InputComp.InputText = styled.TextInput`
   font-size: 20px;
   color: ${Colors.Text};
-  height: 45px;
+  height: 30px;
   margin: 10px 20px;
 `;
 
