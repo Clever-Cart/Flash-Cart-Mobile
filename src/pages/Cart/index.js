@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, ImageBackground  } from 'react-native'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import * as firebase from 'firebase'
 import 'firebase/firestore'
+import { ActivityIndicator } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,16 +57,14 @@ const styles = StyleSheet.create({
     width: 160,
     marginHorizontal: 25,
     marginTop: 15,
-    backgroundColor: 'red',
     height: 160,
     borderRadius: 25
   },
   cardBottom: {
     borderRadius: 25,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'blue',
+    backgroundColor: '#F97D7D',
     width: 160,
     padding: 3,
     height: 40,
@@ -82,35 +81,82 @@ const styles = StyleSheet.create({
 })
 
 const CartScreen = () => {
-  const [products, setProducts] = React.useState(
-    [{ price: 10, name: 'nome', thumbnail: '', id: 1 },
-      { price: 10, name: 'nome', thumbnail: '', id: 2 },
-    { price: 10, name: 'nome', thumbnail: '', id: 3 },
-    { price: 10, name: 'nome', thumbnail: '', id: 4 }]
-  )
-    
+  const [products, setProducts] = React.useState([])
+  const [cartId, setCartId] = React.useState();
+  const [finalPrice, setFinalPrice] = React.useState(0);
+
+  React.useEffect(() => {
+    const db = firebase.firestore()
+    const user = firebase.auth().currentUser
+    db.collection('Users')
+      .doc(user.uid)
+      .onSnapshot(documentSnapshot => {
+        const data = documentSnapshot.data();
+        setCartId(data && data.cartId);
+      });
+  }, [])
+
+  const getProducts = async () => {
+    const db = firebase.firestore()
+    await db.collection('Carts')
+      .doc(cartId)
+      .collection('Products').onSnapshot((querySnapshot) => {
+        const data = querySnapshot.docs.map(doc => {
+          return doc.data();
+        })
+        setProducts(data);
+      })
+  }
+
+  const sumPrice = () => {
+    let price = 0;
+    products.map((item) => {
+      price += item.price;
+      return item;
+    })
+    setFinalPrice(price);
+  }
+
+  React.useEffect(() => {
+    if (cartId) {
+      getProducts();
+    }
+  }, [cartId])
+
+  React.useEffect(() => {
+    if (products) {
+      sumPrice();
+    }
+  }, [cartId])
+   
   return (
     <View style={styles.container}>
       <Text style={styles.info}>Meu carrinho</Text>
-      <FlatList
-        data={products}
-        numColumns={2}
-        contentContainerStyle={{alignItems:'center'}}
-        renderItem={({ item }) =>
-          <View style={styles.card}
-          >
-            <View style={styles.cardBottom}>
-              <Text style={styles.price}>Refrigerante</Text>
-              <Text style={styles.price}>R${'10,00'}</Text>
-            </View>
-          </View>
-        }
-        keyExtractor={ item => item.id.toString()}
-        style={styles.list}
-      />
+      {products.length > 0 ? (
+        <FlatList
+          data={products}
+          numColumns={2}
+          contentContainerStyle={{alignItems:'center'}}
+          renderItem={({ item }) =>
+            <ImageBackground style={styles.card} source={{uri: item.thumbnail}}
+            >
+              <View style={styles.cardBottom}>
+                <View style={{width: '55%', marginLeft: 5}}>
+                  <Text style={styles.price}>{item.name.length < 13
+                    ? `${item.name}`
+                    : `${item.name.substring(0, 13)}...`}</Text>
+                </View>
+                <Text style={styles.price}>R${item.price.toFixed(2)}</Text>
+              </View>
+            </ImageBackground>
+          }
+          keyExtractor={ (item, index)=> index.toString()}
+          style={styles.list}
+        />
+      ) : <ActivityIndicator color="#F97D7D" size="large"/>}
         <View style={styles.bottom}>
           <View style={styles.bottomContainer}>
-            <Text style={styles.price}>Preco total: R${'40,00'}</Text>
+            <Text style={styles.price}>Preco total: R${finalPrice.toFixed(2)}</Text>
             <TouchableOpacity style={styles.button} onPress={() => {}}>
               <Text style={styles.finishShopping}>Fechar compra</Text>
             </TouchableOpacity>
