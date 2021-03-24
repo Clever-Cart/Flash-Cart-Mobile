@@ -8,8 +8,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import SignUp from '../pages/SignUp'
 import SignIn from '../pages/SignIn'
-
 import Home from '../pages/Home'
+import CartScreen from '../pages/Cart'
 import QRCode from '../pages/QRCode'
 import WalletScreen from '../pages/Wallet'
 
@@ -48,6 +48,17 @@ const Wallet = () => (
   </WalletStack.Navigator>
 )
 
+const CartStack = createStackNavigator()
+const Cart = () => (
+  <CartStack.Navigator screenOptions={defaultScreenOptions}>
+    <CartStack.Screen
+      name='Cart'
+      component={CartScreen}
+      options={{ title: 'Lista de compras' }}
+    />
+  </CartStack.Navigator>
+)
+
 const InsideDrawer = createDrawerNavigator()
 const Inside = () => (
   <InsideDrawer.Navigator initialRouteName='Home'>
@@ -62,6 +73,10 @@ const Inside = () => (
     <InsideDrawer.Screen
       name='Wallet'
       component={Wallet}
+    />
+    <InsideDrawer.Screen
+      name='Cart'
+      component={Cart}
     />
   </InsideDrawer.Navigator>
 )
