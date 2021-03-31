@@ -10,7 +10,7 @@ export function InputComponent(props) {
   const [myValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
   const posAnim = useRef(new Animated.Value(29)).current;
-  const sizeAnim = useRef(new Animated.Value(14)).current;
+  const sizeAnim = useRef(new Animated.Value(20)).current;
 
   function handleFocus() {
     if (!isFocused) {
@@ -37,7 +37,7 @@ export function InputComponent(props) {
         useNativeDriver: false,
       }).start();
       Animated.timing(sizeAnim, {
-        toValue: 14,
+        toValue: 20,
         duration: 100,
         useNativeDriver: false,
       }).start();
@@ -51,6 +51,7 @@ export function InputComponent(props) {
           top: posAnim,
           fontSize: sizeAnim,
           position: 'absolute',
+          top: 20,
           left: 20,
           color:
             modifiers && modifiers.includes('danger')

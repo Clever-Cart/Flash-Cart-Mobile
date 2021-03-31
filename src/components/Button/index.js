@@ -8,6 +8,7 @@ const MODIFIERS = {
     width: 92px;
     height: 64px;
     border-radius: 24px;
+    box-shadow: 10px;
   `,
   commonButton: () => `
     margin-top:25px;
@@ -26,19 +27,43 @@ export const Button = styled.TouchableOpacity`
   border-radius: 50px;
   justify-content: center;
   align-items: center;
+  elevation: 10;
 
   ${applyStyleModifiers(MODIFIERS)}
 `;
 
 export const SecondaryButton = styled.TouchableOpacity`
-  height: 48px;
+  height: 70px;
   background-color: ${Colors.SecondaryColor};
   border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+  elevation: 10;
+
+  ${applyStyleModifiers(MODIFIERS)}
+`;
+
+export const SmallWhiteButton = styled.TouchableOpacity`
+  height: 30px;
+  background-color: ${Colors.SecondaryColor};
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+  elevation: 10;
+
+  ${applyStyleModifiers(MODIFIERS)}
+`;
+
+export const ClearButton = styled.TouchableOpacity`
+  height: 60px;
+  background-color: ${Colors.MainColor};
+  border-radius: 50px;
   justify-content: center;
   align-items: center;
 
   ${applyStyleModifiers(MODIFIERS)}
 `;
+
 
 Button.Image = styled.Image`
   width: 24px;

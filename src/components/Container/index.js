@@ -14,8 +14,15 @@ const MODIFIERS = {
 };
 
 export const Container = styled.SafeAreaView`
-  background-color: ${Colors.Background};
+  background-color: ${Colors.SecondaryColor};
   height: 100%;
-  padding: 40px 20px;
+  padding: 40px 40px;
+  ${applyStyleModifiers(MODIFIERS)}
+`;
+
+export const HomeContainer = styled.SafeAreaView`
+  background-color: ${Colors.MainColor};
+  height: 100%;
+  padding: 40px 40px;
   ${applyStyleModifiers(MODIFIERS)}
 `;
